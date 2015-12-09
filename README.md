@@ -331,9 +331,8 @@ CIDER 使用 `cider-mode` 辅助模式(作为主模式的补充
 <kbd>C-c M-z</kbd>                   | 加载执行当前buffer并且切到相邻的nREPL buffer. Use a prefix argument to change the namespace of the REPL buffer to match the currently visited source file.
 <kbd>C-c M-d</kbd>                   | 显示默认REPL连接的详细信息, 包括工程目录名, 缓冲区命名空间, 主机名和端口号.
 <kbd>C-c M-r</kbd>                   | 旋转并且显示默认的 nREPL 连接.
-<kbd>C-c C-o</kbd>                   | 清楚nREPL最后一行.前面加参数的话会清除整个缓冲区,只留下提示符.
-如果你左右分屏打开编辑和运行窗口的话比较有用.
-<kbd>C-c C-k</kbd>                   | 加载执行当前文件的buffer.（最常用的命令，相当于编译）.
+<kbd>C-c C-o</kbd>                   | 清除nREPL最后一行.前面加参数的话会清除整个缓冲区,只留下提示符.如果你左右分屏打开编辑和运行窗口的话比较有用。
+<kbd>C-c C-k</kbd>                   | 加载执行当前文件的buffer.(最常用的命令，相当于编译).
 <kbd>C-c C-l</kbd>                   | 加载执行当前文件.（最常用的命令，相当于编译）.
 <kbd>C-c C-x</kbd>                   | 重新加载classpath上所有已经修改的文件. 如果加前置参数，加载所有classpath上的文件.加载所有classpath上的文件.调用时加双prefix参数, 会清除命名空间reload之前的tracer的状态.
 <kbd>C-c C-d d</kbd>                 | 显示当前光标位置符号的文档. 用前置参数调用或者未找到符号会提示输入symbol.
