@@ -333,45 +333,40 @@ CIDER 使用 `cider-mode` 辅助模式(作为主模式的补充
 <kbd>C-c M-r</kbd>                   | 旋转并且显示默认的 nREPL 连接.
 <kbd>C-c C-o</kbd>                   | 清楚nREPL最后一行.前面加参数的话会清除整个缓冲区,只留下提示符.
 如果你左右分屏打开编辑和运行窗口的话比较有用.
-<kbd>C-c C-k</kbd>                   | 加载执行当前文件的buffer.（最常用的命令，相当于编译）
-<kbd>C-c C-l</kbd>                   | 加载执行当前文件.（最常用的命令，相当于编译）
-<kbd>C-c C-x</kbd>                   | Reload all modified files on the classpath. If invoked with a prefix argument, reload all files on the classpath. If invoked with a double prefix argument, clear the state of the namespace tracker before reloading.
-<kbd>C-c C-d d</kbd>                   | Display doc string for the symbol at point.  If invoked with a prefix argument, or no symbol is found at point, prompt for a symbol.
-<kbd>C-c C-d j</kbd>                   | Display JavaDoc (in your default browser) for the symbol at point.  If invoked with a prefix argument, or no symbol is found at point, prompt for a symbol.
-<kbd>C-c M-i</kbd>                   | Inspect expression. Will act on expression at point if present.
-<kbd>C-c M-t v</kbd>                 | Toggle var tracing.
-<kbd>C-c M-t n</kbd>                 | Toggle namespace tracing.
-<kbd>C-c C-u</kbd>                   | Undefine a symbol. If invoked with a prefix argument, or no symbol is found at point, prompt for a symbol.
-<kbd>C-c ,</kbd>                     | Run tests for namespace.
-<kbd>C-c C-,</kbd>                   | Re-run test failures/errors for namespace.
-<kbd>C-c M-,</kbd>                   | Run test at point.
-<kbd>C-c C-t</kbd>                   | Show the test report buffer.
-<kbd>M-.</kbd>                       | Jump to the definition of a symbol.  If invoked with a prefix argument, or no symbol is found at point, prompt for a symbol.
-<kbd>C-c M-.</kbd>                   | Jump to the resource referenced by the string at point.
-<kbd>C-c C-.</kbd>                   | Jump to some namespace on the classpath.
-<kbd>M-,</kbd>                       | Return to your pre-jump location.
-<kbd>M-TAB</kbd>                     | Complete the symbol at point.
-<kbd>C-c C-d r</kbd>                 | Lookup symbol in Grimoire.
-<kbd>C-c C-d a</kbd>                 | Apropos search for functions/vars.
-<kbd>C-c C-d A</kbd>                 | Apropos search for documentation.
-<kbd>C-c C-q</kbd>                   | Quit the current nREPL connection. With a prefix argument it will quit all connections.
+<kbd>C-c C-k</kbd>                   | 加载执行当前文件的buffer.（最常用的命令，相当于编译）.
+<kbd>C-c C-l</kbd>                   | 加载执行当前文件.（最常用的命令，相当于编译）.
+<kbd>C-c C-x</kbd>                   | 重新加载classpath上所有已经修改的文件. 如果加前置参数，加载所有classpath上的文件.加载所有classpath上的文件.调用时加双prefix参数, 会清除命名空间reload之前的tracer的状态.
+<kbd>C-c C-d d</kbd>                 | 显示当前光标位置符号的文档. 用前置参数调用或者未找到符号会提示输入symbol.
+<kbd>C-c C-d j</kbd>                 | 在默认浏览器里为光标位置符号显示javadoc.  用前置参数调用或者未找到符号会提示输入symbol
+<kbd>C-c M-i</kbd>                   | Inspect 当前光标位置的表达式，如果存在的话.
+<kbd>C-c M-t v</kbd>                 | 开启变量  tracing.
+<kbd>C-c M-t n</kbd>                 | 开启命名空间 tracing.
+<kbd>C-c C-u</kbd>                   | 清除符号定义. 用前置参数调用或者未找到符号会提示输入symbol.
+<kbd>C-c ,</kbd>                     | 运行当前文件的单元测试文件(需要根据路径定义单元测试文件 (ns project.model.namespace-test)).
+<kbd>C-c C-,</kbd>                   | 重新运行失败或者错误的测试用例.
+<kbd>C-c M-,</kbd>                   | 运行当前位置的测试用例.
+<kbd>C-c C-t</kbd>                   | 显示测试报告的buffer.
+<kbd>M-.</kbd>                       | 跳转到符号定义buffer.  用前置参数调用或者未找到符号会提示输入symbol.
+<kbd>C-c M-.</kbd>                   | 跳转道字符串定义的资源的buffer.
+<kbd>C-c C-.</kbd>                   | 跳转到classpath的某个命名空间.
+<kbd>M-,</kbd>                       | 返回之前条转过来的位置.
+<kbd>M-TAB</kbd>                     | 补全当前位置的symbol.
+<kbd>C-c C-d r</kbd>                 | 在 Grimoire 中查找symbol.
+<kbd>C-c C-d a</kbd>                 | Apropos 搜搜 functions/vars.
+<kbd>C-c C-d A</kbd>                 | Apropos 搜索 documentation.
+<kbd>C-c C-q</kbd>                   | 退出当前nREPL连接. 用前置参数调用会退出所有的连接.
 
-There's no need to memorize this list. In any Clojure buffer with `cider-mode`
-active you'll have a CIDER menu available, which lists all the most important
-commands and their keybindings. You can also invoke `C-h f RET cider-mode` to
-get a list of the keybindings for `cider-mode`.
+你不需要记这个列表里的快捷键. CIDER菜单 会在Emacs菜单里. 通过 `C-h f RET cider-mode` 可以获取 `cider-mode`的快捷键.
 
-### Using the REPL
+### 使用  REPL   (REPL会在另外一个buffer出现，一般工作的时候通过C x 3 打开水平的双分屏，一边编辑源码，另一边执行和测试)
 
-CIDER comes with a powerful REPL, which is quite handy when you want to
-experiment with the code you're working on or just explore some stuff (e.g. a
-library you're playing with).  The REPL offers a number of advanced features:
+CIDER repl子模式有很多功能可以再 读取执行打印的过程中跟你的源代码交互:
 
-* auto-completion
-* font-locking (the same as in `clojure-mode`)
-* quick access to many CIDER commands (e.g. definition and documentation lookup, tracing, etc)
+* 自动补全
+* 字体锁定 (和 `clojure-mode` 一样)
+* 快速进入CIDER命令 (e.g. 查找定义和文档, 跟踪等)
 
-Here's a list of the keybindings that are available in CIDER's REPL:
+CIDER's REPL 快捷键:
 
 Keyboard shortcut                    | Description
 -------------------------------------|------------------------------
