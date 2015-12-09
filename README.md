@@ -11,15 +11,13 @@
 CIDER (formerly *nrepl.el*) is the **C**lojure **I**nteractive **D**evelopment
 **E**nvironment that **R**ocks!
 
-CIDER extends Emacs with support for interactive programming in Clojure. The
-features are centered around `cider-mode`, an Emacs minor-mode that complements
-`clojure-mode`. While `clojure-mode` supports editing Clojure source files,
-`cider-mode` adds support for interacting with a running Clojure process for
-compilation, debugging, definition and documentation lookup, running tests and
-so on.
+CIDER 扩展了在 Emacs 里 交互式的方式进行clojure编程的功能。 
+本文描述的CIDER的特性围绕 `cider-mode`这个辅助模式，作为主模式
+`clojure-mode`补充.`clojure-mode`主模式支持编辑Clojure源代码,
+`cider-mode` 辅助模式增加了在交互式编程过程中与一个运行的clojure repl程序之间编译，调试，定义以及查找文档，运行单元测试等等功能。
 
-CIDER is the successor to the now deprecated combination of using [SLIME][] +
-[swank-clojure][] for Clojure development.
+在CIDER 产生之前在Emacs里进行Clojure编程需要使用[SLIME][] +
+[swank-clojure][],但是有了CIDER之后,就不需要前俩了。
 
 If you like the project, please consider [supporting its ongoing development](#donations).
 
