@@ -141,60 +141,43 @@ CIDER 打包了如下列功能：(顺序是随机的):
 
 ![CIDER Screenshot](screenshots/cider-overview.png)
 
-## Installation
+## 安装
 
-The canonical way to install CIDER is via `package.el` (Emacs's built-in package
-manager), but plenty of other options exist. (see the
+常用的安装方法是通过   `package.el` (Emacs's built-in package
+manager)安装,但是也有其他方法
 [wiki](https://github.com/clojure-emacs/cider/wiki/Installation)).
 
-### Prerequisites
+### 前置准备工作
 
-You'll need to have Emacs installed (preferably the latest stable
-release). If you're new to Emacs you might want to read
-[this tutorial](http://clojure-doc.org/articles/tutorials/emacs.html),
-dedicated to setting up Emacs for Clojure development, first.
+装Emacs，CIDER官方支持Emacs 24.3+和Clojure 1.5+
+Emacs新手请参看 [this tutorial](http://clojure-doc.org/articles/tutorials/emacs.html),
 
-CIDER officially supports Emacs 24.3+ and Clojure 1.5+.
 
-You'll also need a recent version of your favorite build tool (Leiningen, Boot
-or Gradle) to be able to start CIDER via `cider-jack-in`. Generally it's a good
-idea to use their latest stable versions.
+使用最新的构建工具(Leiningen, Boot
+or Gradle) 通过`M-x` +  `cider-jack-in`.开启CIDER功能.
 
-#### Upgrading from nrepl.el
+#### 从 nrepl.el 升级(原来使用nrepl.el的老用户，nrepl-ritz老用户请看)
+删掉 `nrepl.el`和所有依赖它的包.删掉nrepl-ritz
+（下面这句是 李锋 87260280@qq.com 自己说的，新用户建议安装全新的环境，使用CIDER和Prelude就够了）
 
-Before installing CIDER make sure you've removed the old `nrepl.el`
-package and all packages that depend on it. Use only packages updated to work with CIDER!
 
-You'll also need to adjust your config accordingly, as most settings
-were renamed in CIDER. Consult the [Configuration](#configuration) section of the
-README for more details.
+#### 从 clojure-test-mode 升级
 
-If you were using
-[nrepl-ritz](https://github.com/pallet/ritz/tree/develop/nrepl), you'll also
-have to remove its plugin and middleware from your `profiles.clj` (or
-`project.clj`).
+CIDER 0.7 使用`cider-test`.  替换了 `clojure-test-mode` 
 
-#### Upgrading from clojure-test-mode
-
-CIDER 0.7 introduced a replacement for the deprecated `clojure-test-mode` called
-`cider-test`.  Please, make sure you've uninstalled `clojure-test-mode` if
-you're using CIDER 0.7 or newer, as `clojure-test-mode` sometimes interferes
-with CIDER's REPL initialization.
-
-### Installation via package.el
+### 从 package.el 安装
 
 `package.el` is the built-in package manager in Emacs.
 
-CIDER is available on the two major `package.el` community
-maintained repos -
+CIDER 保存在两个主要的 `package.el` 社区维护的 repos -
 [MELPA Stable](http://stable.melpa.org)
 and [MELPA](http://melpa.org).
 
-You can install CIDER with the following command:
+通过如下命令安装CIDER:
 
 <kbd>M-x package-install [RET] cider [RET]</kbd>
 
-or by adding this bit of Emacs Lisp code to your Emacs initialization file
+或者把下面这行加到Emacs的初始化文档里：
 (`.emacs` or `init.el`):
 
 ```el
@@ -202,55 +185,47 @@ or by adding this bit of Emacs Lisp code to your Emacs initialization file
   (package-install 'cider))
 ```
 
-If the installation doesn't work try refreshing the package list:
+如果安装后没反应请执行一下刷新:
 
 <kbd>M-x package-refresh-contents [RET]</kbd>
 
-Keep in mind that MELPA packages are built automatically from
-the `master` branch, meaning bugs might creep in there from time to
-time. Never-the-less, installing from MELPA is the recommended way of
-obtaining CIDER, as the `master` branch is normally quite stable and
-"stable" (tagged) builds are released somewhat infrequently.
+请留意：MELPA 是自动从 `master` 分支随时构建,可能会有小bug. 不管怎么说, 推荐从 MELPA 安装, 因为主分支还是比较稳定的，并且对功能的更新比stable要快一些
 
-With the most recent builds of Emacs, you can pin CIDER to always use MELPA
-Stable by adding this to your Emacs initialization:
+把下面这行加到初始化文件，会自动检查稳定版本:
 
 ```el
 (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 ```
 
-**CIDER has deps (e.g. `queue` & `seq`) that are only available in the
-  [GNU ELPA repository](https://elpa.gnu.org/). It's the only package repository
-  enabled by default in Emacs and you should not disable it!**
+**CIDER 有一些依赖 (e.g. `queue` & `seq`) 只存在于
+  [GNU ELPA repository](https://elpa.gnu.org/). 这是你唯一需要关闭的包**
 
-### Setting up CIDER's nREPL middleware
+### 设置 CIDER's nREPL middleware
 
-Much of CIDER's functionality depends on the presence of CIDER's own
+CIDER的很多功能依赖于这个中间件
 [nREPL middleware][cider-nrepl].
 
-#### Using Leiningen
+#### 使用 Leiningen
 
-Use the convenient plugin for defaults, either in your project's
-`project.clj` file or in the :repl profile in `~/.lein/profiles.clj`.
+默认使用习惯插件，在工程文件`project.clj` 里配置
+或者  `~/.lein/profiles.clj`的 :repl
 
 ```clojure
 :plugins [[cider/cider-nrepl "x.y.z"]]
 ```
 
-A minimal `profiles.clj` for CIDER would be:
+一个CIDER的最小配置 `profiles.clj` 如：
 
 ```clojure
 {:repl {:plugins [[cider/cider-nrepl "0.10.0"]]}}
 ```
 
-**Be careful not to place this in the `:user` profile, as this way CIDER's
-middleware will always get loaded, causing `lein` to start slower.  You really
-need it just for `lein repl` and this is what the `:repl` profile is for.**
+**注意不要在 `:user` 配置, 因为这样的话 CIDER的
+middleware 每次都会载入, 造成 `lein` 启动缓慢.  你只需要在执行 `lein repl`命令时 或者 配置文件的`:repl` 里配置 .**
 
-#### Using Boot
+#### 使用 Boot
 
-Boot users can configure the tool to include the middleware automatically in
-all of their projects using a `~/.boot/profile.boot` file like so:
+Boot 用户请配置 `~/.boot/profile.boot`:
 
 ```clojure
 (require 'boot.repl)
@@ -262,12 +237,11 @@ all of their projects using a `~/.boot/profile.boot` file like so:
        conj 'cider.nrepl/cider-middleware)
 ```
 
-For more information visit [boot-clj wiki](https://github.com/boot-clj/boot/wiki/Cider-REPL).
+更多信息请参考 [boot-clj wiki](https://github.com/boot-clj/boot/wiki/Cider-REPL).
 
-#### Using embedded nREPL server
+#### 使用内置的 nREPL server
 
-If you're embedding nREPL in your application you'll have to start the
-server with CIDER's own nREPL handler.
+如果你使用你自己的程序内置的nREPL，你需要在CIDER启动时配置.
 
 ```clojure
 (ns my-app
@@ -279,60 +253,43 @@ server with CIDER's own nREPL handler.
   (nrepl-server/start-server :port 7888 :handler cider-nrepl-handler))
 ```
 
-It goes without saying that your project should depend on `cider-nrepl`.
+它不会提示你需要依赖 `cider-nrepl`.
 
 ***
 
-`x.y.z` should match the version of CIDER you're currently using (say `0.7.1`).
-For snapshot releases of CIDER you should use the snapshot of the plugin as well
-(say `0.7.1-SNAPSHOT`).
+`x.y.z` 插件的版本号需要匹配 CIDER版本号，比如你现在使用( `0.7.1`).
+CIDER 快照发布版本 你应该使用的插件同样应该是( `0.7.1-SNAPSHOT`).
 
-**Note that you need to use at least CIDER 0.7 for the nREPL middleware to work
-properly.  Don't use cider-nrepl with CIDER 0.6.**
+**cider-nrepl 版本不能低于CIDER版本**
 
-## Basic Usage
+## 基本操作
 
-The only requirement to use CIDER is to have a nREPL server to
-which it may connect. Many Clojurians favour the use of the Leiningen or Boot tools
-to start an nREPL server, but the use of Leiningen or Boot is not a prerequisite to use
-CIDER (however, it *is* required if you want to use the `cider-jack-in` command).
+启动Emacs，打开project.clj文件，然后执行 M-x  `cider-jack-in` 命令
 
 ### Setting up a Leiningen or Boot project (optional)
 
-[Leiningen][] is the de facto standard build/project
-management tool for Clojure. [Boot][] is a newer build tool
-offering abstractions and libraries to construct more complex build
-scenarios. Both have a similar scope to the Maven build tool favoured by Java
-developers (and they actually reuse many things from the Maven ecosystem).
+[Leiningen][] 事实上的构建标准. [Boot][] 是一个更新的能有更多定制功能的工具
+.他们都支持 Maven Java构建工具 (并且实际上使用了很多 Maven ecosystem的现成的功能).
 
-CIDER features a command called `cider-jack-in` that will start an nREPL server
-for a particular Leiningen or Boot project and connect to it automatically.
-This functionality depends on Leiningen 2.x (preferably 2.5+) or Boot
-2.0.0+. Older versions are not supported. For Leiningen, follow the installation
-instructions on its web site to get it up and running and afterwards create a
-project like this:
+CIDER 执行 M-x  `cider-jack-in` 命令 依赖Leiningen 2.x (preferably 2.5+) 或者 Boot
+2.0.0+. 老版本不支持
+如果用leiningen的话，比如：
 
 ```
 $ lein new demo
 ```
 
-The two main ways to obtain an nREPL connection are discussed in the following sections of the manual.
+### 在Emacs里启动nRepl服务
 
-### Launch a nREPL server and client from Emacs
+在当前工程下随便打开一个*.clj文件，输入 <kbd>M-x cider-jack-in</kbd>. 就会自动启动CIDER
+ <kbd>C-u M-x cider-jack-in</kbd> 设定启动哪一个 `lein` 或者 `boot` 工程,
 
-Simply open in Emacs a file belonging to your `lein` or `boot` project (like
-`foo.clj`) and type <kbd>M-x cider-jack-in</kbd>. This will start a nREPL server with
-all the project deps loaded in and CIDER with automatically connect to it.
+在 Clojure(Script) 缓冲列表里  `cider-jack-in` 绑定的快捷键是 <kbd>C-c M-j</kbd>.
 
-Alternatively you can use <kbd>C-u M-x cider-jack-in</kbd> to specify the name of
-a `lein` or `boot` project, without having to visit any file in it.
+### 连接到一个已有的nRepl
 
-In Clojure(Script) buffers the command `cider-jack-in` is bound to <kbd>C-c M-j</kbd>.
-
-### Connect to a running nREPL server
-
-You can go to your project's dir in a terminal and type there
-(assuming you're using Leiningen that is):
+在project's dir 下在终端里输入
+(假设你使用 Leiningen ):
 
 ```
 $ lein repl
@@ -344,15 +301,11 @@ Or with Boot:
 $ boot repl wait
 ```
 
-Alternatively you can start nREPL either manually or by the facilities provided by your
-project's build tool (Maven, etc).
+nREPL启动后，回到Emacs输入 <kbd>M-x cider-connect</kbd> 你就连过去了.
 
-After you get your nREPL server running go back to Emacs.
-Typing there <kbd>M-x cider-connect</kbd> will allow you to connect to the running nREPL server.
+在 Clojure(Script)里 `cider-connect` 快捷键绑定为： <kbd>C-c M-c</kbd>.
 
-In Clojure(Script) buffers the command `cider-connect` is bound to <kbd>C-c M-c</kbd>.
-
-### Using cider-mode
+### 使用 cider-mode（最重要的部分来了）
 
 CIDER comes with a handy minor mode called `cider-mode` (complementing
 `clojure-mode`) that allows you to evaluate code in your Clojure source
