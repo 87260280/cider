@@ -19,136 +19,125 @@ CIDER 扩展了在 Emacs 里 交互式的方式进行clojure编程的功能。
 在CIDER 产生之前在Emacs里进行Clojure编程需要使用[SLIME][] +
 [swank-clojure][],但是有了CIDER之后,就不需要前俩了。
 
-If you like the project, please consider [supporting its ongoing development](#donations).
+如果你喜欢这个project, 请点击 [supporting its ongoing development](#donations).
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/clojure-emacs/cider?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-**This documentation tracks the `master` branch of CIDER. Some of
-the features and settings discussed here might not be available in
-older releases (including the current stable release). Please, consult
-the relevant git tag (e.g. v0.10.0) if you need documentation for a
-specific CIDER release.**
+**本文根据 CIDER主版本翻译从中文 ( v0.10.0) 如果你需要查看过去的版本说明，请checkout其他版本
 
 ***
 
-- [Overview](#overview)
-- [Installation](#installation)
-  - [Prerequisites](#prerequisites)
-  - [Installation via package.el](#installation-via-packageel)
-  - [Setting up CIDER's nREPL middleware](#setting-up-ciders-nrepl-middleware)
-    - [Using Leiningen](#using-leiningen)
-    - [Using Boot](#using-boot)
-    - [Using embedded nREPL server](#using-embedded-nrepl-server)
-- [Basic Usage](#basic-usage)
-  - [Setting up a Leiningen or Boot project (optional)](#setting-up-a-leiningen-or-boot-project-optional)
-  - [Launch a nREPL server and client from Emacs](#launch-a-nrepl-server-and-client-from-emacs)
-  - [Connect to a running nREPL server](#connect-to-a-running-nrepl-server)
-  - [Using cider-mode](#using-cider-mode)
-  - [Using the REPL](#using-the-repl)
-    - [REPL Configuration](#repl-configuration)
-      - [REPL history](#repl-history)
-  - [ClojureScript usage](#clojurescript-usage)
-- [Extended Workflow](#extended-workflow)
-  - [Macroexpansion](#macroexpansion)
-  - [Value Inspection](#value-inspection)
-  - [Running Tests](#running-tests)
-  - [Navigating Stacktraces](#navigating-stacktraces)
-  - [Debugging](#debugging)
-  - [Code reloading](#code-reloading)
-  - [Managing multiple connections](#managing-multiple-connections)
-- [Configuration](#configuration)
-  - [Basic configuration](#basic-configuration)
+- [概览](#overview)
+- [安装](#installation)
+  - [前置条件](#prerequisites)
+  - [通过 package.el安装](#installation-via-packageel)
+  - [设置 CIDER's nREPL 中间件](#setting-up-ciders-nrepl-middleware)
+    - [使用 Leiningen](#using-leiningen)
+    - [使用 Boot](#using-boot)
+    - [使用 embedded nREPL server](#using-embedded-nrepl-server)
+- [基本操作](#basic-usage)
+  - [设定一个 Leiningen 或者 启动工程 project (可选)](#setting-up-a-leiningen-or-boot-project-optional)
+  - [在EMACS里启动一个 nREPL 服务器和客户端](#launch-a-nrepl-server-and-client-from-emacs)
+  - [连接到一个正在运行的nREPL服务器](#connect-to-a-running-nrepl-server)
+  - [使用 cider-mode](#using-cider-mode)
+  - [使用 REPL](#using-the-repl)
+    - [REPL 配置](#repl-configuration)
+      - [REPL 历史](#repl-history)
+  - [在编辑ClojureScript时如何使用](#clojurescript-usage)
+- [高级操作](#extended-workflow)
+  - [手动扩展宏](#macroexpansion)
+  - [值的检查](#value-inspection)
+  - [运行单元测试](#running-tests)
+  - [查看运行调用栈的操作](#navigating-stacktraces)
+  - [调试](#debugging)
+  - [重新载入代码](#code-reloading)
+  - [管理多个连接](#managing-multiple-connections)
+- [修改配置](#configuration)
+  - [基本配置](#basic-configuration)
   - [Overlays](#overlays)
-  - [Specifying indentation](#specifying-indentation)
-  - [Minibuffer completion](#minibuffer-completion)
-  - [Auto-completion](#auto-completion)
-  - [Integration with other modes](#integration-with-other-modes)
-- [Caveats](#caveats)
-  - [Var Metadata](#var-metadata)
-  - [ClojureScript limitations](#clojurescript-limitations)
-  - [Microsoft Windows](#microsoft-windows)
+  - [设置代码缩进](#specifying-indentation)
+  - [Minibuffer 命令补全](#minibuffer-completion)
+  - [自动补全功能](#auto-completion)
+  - [同时使用其他有用的模式](#integration-with-other-modes)
+- [附加说明](#caveats)
+  - [变量元数据](#var-metadata)
+  - [ClojureScript 局限性](#clojurescript-limitations)
+  - [微软Windows系统特殊部分](#microsoft-windows)
   - [powershell.el](#powershell-el)
-- [Troubleshooting](#troubleshooting)
-- [Documentation](#documentation)
-- [Changelog](#changelog)
-- [Team](#team)
-- [Release policy](#release-policy)
+- [疑难问题处理](#troubleshooting)
+- [文档](#documentation)
+- [修改日志](#changelog)
+- [团队](#team)
+- [版本发布策略](#release-policy)
 - [Logo](#logo)
-- [Contributing](#contributing)
-  - [Discussion](#discussion)
-  - [Issues](#issues)
-  - [Patches](#patches)
-  - [Documentation](#documentation)
-  - [Donations](#donations)
-  - [Running the tests in batch mode](#running-the-tests-in-batch-mode)
+- [提交](#contributing)
+  - [讨论交流](#discussion)
+  - [问题列表](#issues)
+  - [补丁](#patches)
+  - [文档](#documentation)
+  - [捐赠](#donations)
+  - [批量运行测试](#running-the-tests-in-batch-mode)
 - [License](#license)
 
 ## Overview
 
-CIDER aims to provide an interactive development experience similar to the one
-you'd get when programming in Emacs Lisp, Common Lisp (with [SLIME][] or [Sly][]),
-Scheme (with [Geiser][]) and Smalltalk.
+CIDER 意在提供一个跟过去的Emacs Lisp, Common Lisp (with [SLIME][] or [Sly][]),
+Scheme (with [Geiser][]) Smalltalk等的 nREPL(1.读取，2.直行，3.打印，从1-3循环)的交互式编程环境。
 
-Programmers are expected to program in a very dynamic and incremental manner,
-constantly re-evaluating existing Clojure definitions and adding new ones to
-their running applications. You never stop/start a Clojure application while
-using CIDER - you're constantly interacting with it and changing it.
+程序员喜欢使用动态，递增的编程方式，频繁的运行已有的clojure代码以及增加新功能代码，
+在使用CIDER操作nREPL时你不需要经常启动/停止你的clojure程序，就像在命令行里面一样，在一个命名空间下，改变命名空间里的程序，并且随时运行和测试它。
 
-You can find more details about the typical CIDER workflow in the `Basic Usage`
-section. While we're a bit short on video tutorials, you can check out this
-[tutorial about SLIME](https://www.youtube.com/watch?v=_B_4vhsmRRI) to get a
-feel about what do we mean by an "Interactive Development Environment".
-There are plenty of differences between CIDER and SLIME, but the core ideas are
-pretty much the same (and SLIME served as the principle inspiration for CIDER).
 
-CIDER's built on top of [nREPL][], the Clojure networked REPL server.
+ `基本使用`这一节描述基本的CIDER详细的工作流程！
+ 参看如下视频，关于SLIME的交互式开发与编程方法。
+[tutorial about SLIME](https://www.youtube.com/watch?v=_B_4vhsmRRI)  
+CIDER 和 SLIME有很多不同 但是核心思路非常相似！CIDER借鉴了SLIME的很多功能。
 
-CIDER's basic architecture looks something like this:
+CIDER's 的功能基于 [nREPL][],  nREPL是 Clojure的一个网络REPL服务器（所以你可以远程给飞机换发动机）.
+
+CIDER 基本结构如下图:
 
 <p align="center">
   <img src="doc/images/cider_architecture.png" width="600" />
 </p>
 
-Clojure code gets executed by an nREPL server. CIDER sends requests to the
-server and processes its responses. The server's functionality is augmented by
+Clojure 代码通过nREPL server执行. CIDER 客户端发送执行代码的请求并且接受执行结果. The server's functionality is augmented by
 additional nREPL middleware, designed specifically to address the needs of an
 interactive development environment like CIDER. Much of the middleware we
 developed for CIDER is editor agnostic and is being used by other Clojure dev
 environments as well (e.g. [vim-fireplace][] & [CCW][]).
 
-If you're interested in more details about CIDER's history and architecture you
-can check out the Clojure/conj presentation
-[The Evolution of the Emacs tooling for Clojure](https://www.youtube.com/watch?v=4X-1fJm25Ww&list=PLZdCLR02grLoc322bYirANEso3mmzvCiI&index=6)
-and the [Cognicast's episode on CIDER](http://blog.cognitect.com/cognicast/080).
-There's also a
-[ClojureX 2015 presentation](https://skillsmatter.com/skillscasts/7225-cider-the-journey-so-far-and-the-road-ahead)
-dedicated to CIDER 0.9 and 0.10 and the future of the project.
+CIDER的发展历史和结构
+1.[The Evolution of the Emacs tooling for Clojure](https://www.youtube.com/watch?v=4X-1fJm25Ww&list=PLZdCLR02grLoc322bYirANEso3mmzvCiI&index=6)
+2. [Cognicast's episode on CIDER](http://blog.cognitect.com/cognicast/080).
+3.[ClojureX 2015 presentation](https://skillsmatter.com/skillscasts/7225-cider-the-journey-so-far-and-the-road-ahead)
 
-CIDER packs plenty of features. Here are some of them (in no particular order):
 
-* Powerful REPL
-* Interactive code evaluation
-* Compilation notes (error and warning highlighting)
-* Human-friendly stacktraces
-* Smart code completion
-* Definition lookup
-* Documentation lookup
-* Resource lookup
+CIDER 打包了如下列功能：(顺序是随机的):
+
+* 强大的 REPL
+* 交互式的执行代码
+* 编译提示 (高亮错误和警告)
+* 方便可读的调用堆栈提示
+* 智能代码补全
+* 在代码定义和调用之间跳转
+* 查找文档
+* 查找网络资源
 * Apropos
-* Debugger
-* Value inspector
-* Function tracing
-* Interactive macroexpansion
-* Enhanced Clojure font-locking and indentation
-* [Grimoire](http://conj.io/) integration
-* `clojure.test` integration
-* Classpath browser
-* Namespace browser
-* nREPL session management
+* 调试器
+* 值查看器
+* 函数 Tracing
+* 交互的方式展开一个宏
+* 增强的代码字体和缩进
+* [Grimoire](http://conj.io/) 集成
+* `clojure.test` 集成
+* Classpath 浏览器
+* Namespace 浏览器
+* nREPL session 管理
 * Scratchpad
-* Minibuffer code evaluation
-* Integration with [company-mode][] and [auto-complete-mode][]
-* Support for working with multiple simultaneous nREPL connections
+* Minibuffer 执行代码
+* 集成 [company-mode][] 和 [auto-complete-mode][]用于代码补全
+* 多个 nREPL 连接的支持
 
 ![CIDER Screenshot](screenshots/cider-overview.png)
 
