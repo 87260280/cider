@@ -771,7 +771,13 @@ regarding writing reloadable code also apply.
 改变标示符： <kbd>M-x
 cider-change-buffers-designation</kbd>. 如 `cider-change-buffers-designation` 加字符串 "foo" 会改变 `*cider-repl localhost*` 为 `*cider-repl foo*`.
 
-## 更深度的定制（）
+（后面的部分暂时不翻译了！请各位自行查看源文档，另外配合Prelude和Emacs自身的分屏，分窗口切换等功能，使用Emacs 进行clojure REPL基本就够了）
+
+
+
+
+
+## 更深度的定制
 
 如下高级功能配置可以略过也可以参考
 
