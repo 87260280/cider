@@ -369,56 +369,50 @@ CIDER's REPL 快捷键:
 
 Keyboard shortcut                    | Description
 -------------------------------------|------------------------------
-<kbd>RET</kbd>        | Evaluate the current input in Clojure if it is complete. If incomplete, open a new line and indent. If invoked with a prefix argument is given then the input is evaluated without checking for completeness.
-<kbd>C-RET</kbd>      | Close any unmatched parenthesis and then evaluate the current input in Clojure.
-<kbd>C-j</kbd>        | Open a new line and indent.
+<kbd>RET</kbd>        | 如果输入的是一个完整的form，执行它. 如果不完整，则换行继续输入.如果带有前置参数则不检查完整性，直接执行.
+<kbd>C-RET</kbd>      | 补全不当前form不完整的括号对，然后执行并输出.
+<kbd>C-j</kbd>        | 开启新行并缩进
 <kbd>C-c C-o</kbd>    | Remove the output of the previous evaluation from the REPL buffer. With a prefix argument it will clear the entire REPL buffer, leaving only a prompt.
-<kbd>C-c M-o</kbd>    | Switch between the Clojure and ClojureScript REPLs for the current project.
-<kbd>C-c C-u</kbd>    | Kill all text from the prompt to the current point.
-<kbd>C-c C-b</kbd> <kbd>C-c C-c</kbd>| Interrupt any pending evaluations.
-<kbd>C-up</kbd> <kbd>C-down</kbd> | Goto to previous/next input in history.
-<kbd>M-p</kbd> <kbd>M-n</kbd> | Search the previous/next item in history using the current input as search pattern. If <kbd>M-p/M-n</kbd> is typed two times in a row, the second invocation uses the same search pattern (even if the current input has changed).
-<kbd>M-s</kbd> <kbd>M-r</kbd> | Search forward/reverse through command history with regex.
-<kbd>C-c C-n</kbd> <kbd>C-c C-p</kbd> | Move between the current and previous prompts in the REPL buffer. Pressing <kbd>RET</kbd> on a line with old input copies that line to the newest prompt.
-<kbd>C-c C-x</kbd>     | Reload all modified files on the classpath.
-<kbd>C-u C-c C-x</kbd> | Reload all files on the classpath.
-<kbd>TAB</kbd> | Complete symbol at point.
-<kbd>C-c C-d d</kbd> | Display doc string for the symbol at point.  If invoked with a prefix argument, or no symbol is found at point, prompt for a symbol
-<kbd>C-c C-d j</kbd> | Display JavaDoc (in your default browser) for the symbol at point.  If invoked with a prefix argument, or no symbol is found at point, prompt for a symbol.
-<kbd>C-c C-d r</kbd> | Lookup symbol in Grimoire.
-<kbd>C-c C-d a</kbd> | Apropos search for functions/vars.
-<kbd>C-c C-d A</kbd> | Apropos search for documentation.
-<kbd>C-c C-z</kbd> | Switch to the previous Clojure buffer. This complements <kbd>C-c C-z</kbd> used in cider-mode.
-<kbd>C-c M-i</kbd> | Inspect expression. Will act on expression at point if present.
-<kbd>C-c M-n</kbd> | Select a namespace and switch to it.
-<kbd>C-c C-.</kbd> | Jump to some namespace on the classpath.
-<kbd>C-c M-t v</kbd> | Toggle var tracing.
-<kbd>C-c M-t n</kbd> | Toggle namespace tracing.
-<kbd>C-c C-q</kbd>                   | Quit the current nREPL connection. With a prefix argument it will quit all connections.
+<kbd>C-c M-o</kbd>    | 在当前工程的 Clojure 和 ClojureScript REPLs 中切换.
+<kbd>C-c C-u</kbd>    | 删除左侧所有字符.
+<kbd>C-c C-b</kbd> <kbd>C-c C-c</kbd>| 中断当前nREPL里的所有执行中的程序.
+<kbd>C-up</kbd> <kbd>C-down</kbd> | 在输入历史中前后切换,可以用于重复执行上一次的代码.
+<kbd>M-p</kbd> <kbd>M-n</kbd> | 用当前行的输入作为条件在历史输入中匹配. 如果 <kbd>M-p/M-n</kbd> 在同一行中输入两次,后面的搜索会以第一次的输入为搜索条件.
+<kbd>M-s</kbd> <kbd>M-r</kbd> | 用正则方式在命令中搜索.
+<kbd>C-c C-n</kbd> <kbd>C-c C-p</kbd> | 在命令提示符中上下跳转. 回车 <kbd>RET</kbd> 则复制当前行到最前面的命令行提示符，用于重复执行代码.
+<kbd>C-c C-x</kbd>     | 重新Load classpath中修改过的文件.
+<kbd>C-u C-c C-x</kbd> | 重新Load classpath中的所有文件.
+<kbd>TAB</kbd>         | 和Linux终端类似，补全符号.
+<kbd>C-c C-d d</kbd>   | 显示光标所在处的symbol的文档.  如果带有前置参数, 或者当前没有symbol, 则提示输入symbol
+<kbd>C-c C-d j</kbd>   | 打开默认浏览器，显示光标所在处的symbol的JavaDoc文档.  如果带有前置参数, 或者当前没有symbol, 则提示输入symbol
+<kbd>C-c C-d r</kbd>   | 在Grimoire中搜索文档.
+<kbd>C-c C-d a</kbd>   | Apropos 搜索 functions/vars.
+<kbd>C-c C-d A</kbd>   | Apropos 搜索文档.
+<kbd>C-c C-z</kbd>     | 切换到前一个nREPL. 作为 <kbd>C-c C-z</kbd> 在 cider-mode里的补充.
+<kbd>C-c M-i</kbd>     | Inspect 光标处的表达式.
+<kbd>C-c M-n</kbd>     | 在clj文件编辑的时候，切到当前命名空间，在nREPL里，则切换命名空间，在回显区中选择.
+<kbd>C-c C-.</kbd>     | 跳到classpath里的某个命名空间.
+<kbd>C-c M-t v</kbd>   |  开启变量tracing .
+<kbd>C-c M-t n</kbd>   | 开启命名空间 tracing.
+<kbd>C-c C-q</kbd>     | 退出当前 nREPL连接.如果带有前置参数,则退出所有连接.
 
-There's no need to memorize this list. In any REPL buffer you'll have a `REPL`
-menu available, which lists all the most important commands and their
-keybindings. You can also invoke `C-h f RET cider-repl-mode` to get a list of the
-keybindings for `cider-repl-mode`.
-
-In the REPL you can also use "shortcut commands" by pressing `,` at the
-beginning of a REPL line. You'll be presented with a list of commands you can
-quickly run (like quitting, displaying some info, clearing the REPL, etc). The
-character used to trigger the shortcuts is configurable via
+这些快捷键不需要记 EMacs菜单上会有`REPL`项，列表里有所有的功能和快捷键绑定  `C-h f RET cider-repl-mode` 查看 `cider-repl-mode`.快捷键
+在nREPL提示符输入`,`会提示可输入的命令.
+通过以下设置
 `cider-repl-shortcut-dispatch-char`. Here's how you can change it to `:`:
 
 ```el
 (setq cider-repl-shortcut-dispatch-char ?\:)
 ```
 
-#### REPL Configuration
+#### REPL 配置修改(部分翻译！)
 
-* You can customize the prompt in REPL buffer. To do that you can customize
-  `cider-repl-prompt-function` and set it to a function that takes one argument,
-  a namespace name. For convenience, three functions are already provided:
+* 定制 REPL 提示符:
+  `cider-repl-prompt-function` 接受带一个参数的函数,
+  命名空间名称. 以下三个是已有的备选:
   `cider-repl-prompt-lastname`, `cider-repl-prompt-abbreviated`,
-  `cider-repl-prompt-default` and by default the last one is being used.
-  Prompt for each of them for namespace `leiningen.core.ssl`:
+  `cider-repl-prompt-default` 默认最后一个被使用.
+  例如在命名空间`leiningen.core.ssl`:
 
   * `cider-repl-prompt-lastname`:
 
@@ -438,12 +432,8 @@ character used to trigger the shortcuts is configurable via
   leiningen.core.ssl>
   ```
 
-  You may, of course, write your own function. For example, in `leiningen` there
-  are two namespaces with similar names - `leiningen.classpath` and
-  `leiningen.core.classpath`. To make them easily recognizable you can either
-  use the default value or you can opt to show only two segments of the
-  namespace and still be able to know which is the REPL's current
-  namespace. Here is an example function that will do exactly that:
+  当然你可以自己写一个函数.例如 在 `leiningen` 里有2个命名空间有相似的名字  - `leiningen.classpath` 和
+  `leiningen.core.classpath`. 设定以下可以区分你的不同的nREPL:
 
   ```el
   (defun cider-repl-prompt-show-two (namespace)
@@ -505,89 +495,79 @@ Buffer name will look like *cider-repl project-name:port*.
 (setq cider-repl-use-clojure-font-lock nil)
 ```
 
-##### Pretty printing in the REPL
+##### REPL 里使用prety print（美化输出）
 
-Make the REPL always pretty-print the results of your commands. Note
-that this will not work correctly with forms such as `(def a 1) (def b2)`
-and it expects `clojure.pprint` to have been required already
-(the default in more recent versions of Clojure):
+ `(def a 1) (def b2)` 这样的forms 不支持。
+ 需要require引入 `clojure.pprint` 才行
+(Clojure早期版本的pprint命名空间不同):
 
 <kbd>M-x cider-repl-toggle-pretty-printing</kbd>
 
-##### Limiting printed output in the REPL
+##### 限制REPL输出长度  
 
-Accidentally printing large objects can be detrimental to your
-productivity. Clojure provides the `*print-length*` var which, if set,
-controls how many items of each collection the printer will print. You
-can supply a default value for REPL sessions via the `repl-options`
-section of your Leiningen project's configuration.
+太长的print会阻塞当前输入，通过设定`*print-length*` 限制
+你可以设置 Leiningen 工程文件的`repl-options` 配置
 
 ```clojure
 :repl-options {:init (set! *print-length* 50)}
 ```
 
-##### REPL history
+##### REPL 命令历史
 
-* To make the REPL history wrap around when its end is reached:
+* 自动换行:
 
 ```el
 (setq cider-repl-wrap-history t)
 ```
 
-* To adjust the maximum number of items kept in the REPL history:
+* 历史命令缓冲保留长度:
 
 ```el
 (setq cider-repl-history-size 1000) ; the default is 500
 ```
 
-* To store the REPL history in a file:
+* 保存到文件:
 
 ```el
 (setq cider-repl-history-file "path/to/file")
 ```
 
-Note that the history is written to the file when you kill the REPL
-buffer (which includes invoking `cider-quit`) or you quitting Emacs.
+kill buffer的时候history已经保存到文件 ( `cider-quit` 或者退出Emacs也会保存)
 
 
-### ClojureScript usage
+### ClojureScript 使用
 
-ClojureScript support relies on the
-[piggieback][] nREPL middleware being
-present in your REPL session.
+ClojureScript 依赖
+[piggieback][] nREPL 中间件.
 
-1. Add the following dependencies to your `project.clj`
+1. 在 `project.clj`中添加依赖
 
    ```clojure
    [com.cemerick/piggieback "0.2.1"]
    [org.clojure/clojure "1.7.0"]
    ```
 
-   as well as the following option:
+   再加上:
 
    ```clojure
    :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
    ```
 
-2. Issue <kbd>M-x</kbd> `customize-variable` <kbd>RET</kbd> `cider-cljs-repl` if
-   you'd like to change the REPL used (the default is `rhino`).
+2. 输入 <kbd>M-x</kbd> `customize-variable` <kbd>RET</kbd> `cider-cljs-repl` 如果你像改变你的 REPL 的JS（clojurescript需要编译成Js在js运行环境中执行）环境 (默认是 `rhino`).
 
-3. Open a file in your project and issue <kbd>M-x</kbd>
-   `cider-jack-in-clojurescript`. This will start up the nREPL server, and then create
-   two REPL buffers for you, one in Clojure and one in ClojureScript. All usual
-   CIDER commands will be automatically directed to the appropriate REPL,
-   depending on whether you're visiting a `clj` or a `cljs` file.
+3. 打开工程里的一个文件然后 <kbd>M-x</kbd>
+   `cider-jack-in-clojurescript`. 会开启nREPL并且启动两个REPL   Clojure 和 ClojureScript各一个个.你访问 `clj` 或 `cljs` 两种不同文件时相应的CIDER 命令会自动导向相应的REPL.
 
-#### Browser-connected ClojureScript REPL
+#### 浏览器连接的 ClojureScript REPL
 
-Using Weasel, you can also have a browser-connected REPL.
+使用 Weasel, 你可以使用浏览器连接的 REPL.
 
-1. Add `[weasel "0.7.0"]` to your project's `:dependencies`.
+1. 增加 `[weasel "0.7.0"]` 到工程文件的 `:dependencies`.
 
-2. Issue <kbd>M-x</kbd> `customize-variable` <kbd>RET</kbd> `cider-cljs-repl`
-   and choose the `Weasel` option.
+2. 敲 <kbd>M-x</kbd> `customize-variable` <kbd>RET</kbd> `cider-cljs-repl`
+   选择 `Weasel` 选项.
 
-3. Add this to your ClojureScript code:
+3. 把如下代码加到你的ClojureScript 代码中:
 
    ```clojure
    (ns my.cljs.core
@@ -595,144 +575,110 @@ Using Weasel, you can also have a browser-connected REPL.
    (repl/connect "ws://localhost:9001")
    ```
 
-4. Open a file in your project and issue `M-x cider-jack-in-clojurescript`.
+4. 打开工程中的一个文件后敲 `M-x cider-jack-in-clojurescript`.
 
-Provided that a Piggieback-enabled ClojureScript environment is active in your
-REPL session, code loading and evaluation will work seamlessly regardless of the
-presence of the `cider-nrepl` middleware. If the middleware is present then most
-other features of CIDER will also be enabled (including code completion,
-documentation lookup, the namespace browser, and macroexpansion).
+Piggieback-enabled ClojureScript 环境就在REPL session 中激活了
+, load和eval代码不受 `cider-nrepl` 中间件的影响. 如果中间件是开着的如下功能不受影响(包括代码补全,
+文档查找，命名空间浏览，宏扩展等).
 
-## Extended workflow
+## 更高级的工作流程
 
-CIDER packs a ton of extra functionality, besides basic Clojure code
-evaluation. Much of the functionality is centered around additional major modes,
-which provide you with convenient ways to get something done or inspect
-something.
+更多的辅助模式可以补充CIDER 没有提供的功能。
 
-### Macroexpansion
+### 宏扩展
 
-Pressing <kbd>C-c C-m</kbd> after some form in a source buffer or the REPL will
-result in a new buffer, showing the macroexpansion of form in question. You'll
-have access to additional keybindings in the macroexpansion buffer (which is
-internally using `cider-macroexpansion-mode`):
+在form后面敲 <kbd>C-c C-m</kbd> 会显示宏扩展的结果. 更多功能将使用 `cider-macroexpansion-mode`):
 
-Keyboard shortcut               | Description
+           快捷键               | 描述
 --------------------------------|-------------------------------
-<kbd>C-c C-m</kbd>              | Invoke `macroexpand-1` on the form at point and replace the original form with its expansion.  If invoked with a prefix argument, `macroexpand` is used instead of `macroexpand-1`.
-<kbd>C-c M-m</kbd>              | Invoke `clojure.walk/macroexpand-all` on the form at point and replace the original form with its expansion.
-<kbd>g</kbd>                    | The prior macroexpansion is performed again and the current contents of the macroexpansion buffer are replaced with the new expansion.
-<kbd>C-/</kbd> <kbd>C-x u</kbd> | Undo the last inplace expansion performed in the macroexpansion buffer.
+<kbd>C-c C-m</kbd>              | 对光标前的form执行 `macroexpand-1` ，如果带前缀, 会执行`macroexpand` 而不是 `macroexpand-1`.
+<kbd>C-c M-m</kbd>              | 执行 `clojure.walk/macroexpand-all` 
+<kbd>g</kbd>                    | 重复上一次的展开并替换当前结果.
+<kbd>C-/</kbd> <kbd>C-x u</kbd> | 撤回一次展开.
 
-### Value inspection
+### 值跟踪
 
-Pressing <kbd>C-c C-i</kbd> after some form in a source buffer or the REPL will
-result in a new buffer, showing the structure of the result of the form in question. You'll
-have access to additional keybindings in the inspector buffer (which is
-internally using `cider-inspector-mode`):
+使用(`cider-inspector-mode`)模式: 
 
-Keyboard shortcut                       | Description
+           快捷键                       | 描述
 ----------------------------------------|-------------------------------
-<kbd>Tab</kbd> and <kbd>Shift-Tab</kbd> | navigate inspectable sub-objects
-<kbd>Return</kbd>                       | inspect sub-objects
-<kbd>l</kbd>                            | pop to the parent object
-<kbd>g</kbd>                            | refresh the inspector (e.g. if viewing an atom/ref/agent)
-<kbd>SPC</kbd>                          | jump to next page in paginated view
-<kbd>M-SPC</kbd>                        | jump to previous page in paginated view
-<kbd>s</kbd>                            | set a new page size in paginated view
+<kbd>Tab</kbd> and <kbd>Shift-Tab</kbd> | 浏览可跟踪的子对象
+<kbd>Return</kbd>                       | 跟踪子对象
+<kbd>l</kbd>                            | 回跳到上一层
+<kbd>g</kbd>                            | 刷新跟踪器 (e.g. 比如在跟踪一个 atom/ref/agent)
+<kbd>SPC</kbd>                          | 看下一页如果超过一页的话
+<kbd>M-SPC</kbd>                        | 看上一页
+<kbd>s</kbd>                            | 设定新的页长度
 
-### Running tests
+### 运行测试（非常有用的一部分）
 
-You can run `clojure.test` tests pretty quickly in CIDER. Pressing <kbd>C-c
-,</kbd> in a source buffer will run the tests for the namespace you're currently
-in. CIDER is smart enough to figure out the namespace containing the tests.
+你可以运行 `clojure.test` 测试. 在源代码中敲 <kbd>C-c
+,</kbd> 会运行当前命名空间的测试. CIDER 会自动识别.
 
-In the buffer displaying the test execution results you'll have a bit of
-additional functionality at your disposal.
+buffer会回显测试结果， 更多功能如下：
 
-Keyboard shortcut               | Description
+           快捷键               | 描述
 --------------------------------|-------------------------------
-<kbd>C-c ,</kbd>                | Run tests for namespace.
-<kbd>C-c C-,</kbd>              | Re-run test failures/errors for namespace.
-<kbd>C-c M-,</kbd>              | Run test at point.
-<kbd>M-p</kbd>                  | Move point to previous test.
-<kbd>M-n</kbd>                  | Move point to next test.
-<kbd>t</kbd> and <kbd>M-.</kbd> | Jump to test definition.
-<kbd>d</kbd>                    | Display diff of actual vs expected.
-<kbd>e</kbd>                    | Display test error cause and stacktrace info.
+<kbd>C-c ,</kbd>                | 运行当前命名空间的测试.
+<kbd>C-c C-,</kbd>              | 重复运行失败或错误的测试.
+<kbd>C-c M-,</kbd>              | 运行光标处的测试.
+<kbd>M-p</kbd>                  | 跳到上一个.
+<kbd>M-n</kbd>                  | 跳到下一个.
+<kbd>t</kbd> and <kbd>M-.</kbd> | 调到测试定义.
+<kbd>d</kbd>                    | 显示预期和实际结果.
+<kbd>e</kbd>                    | 显示错误和调用栈.
 
-Certain aspects of the test execution behavior are configurable:
+如下操作可以配置:
 
-* If your tests are not following the `some.ns-test` naming convention you can
-customize the variable `cider-test-infer-test-ns`. It should be bound to a
-function that takes the current ns and returns the matching test ns (which may
-be the same as the current ns).
+* 如果你的测试用例命名空间不是以默认的 `some.ns-test` 方式你可以改变 `cider-test-infer-test-ns`. 它应该绑定以现有命名空间为输入，测试命名空间为输出的一个函数 (函数式编程).
 
-* If you want to view the test report regardless of whether the tests have
-passed or failed:
+* 设置查看所有的测试结果不管执行结果对错:
 
 ```el
 (setq cider-test-show-report-on-success t)
 ```
 
-### Navigating stacktraces
+### 调用栈浏览
 
-CIDER comes with a powerful solution to the problem of verbose Clojure
-stacktraces.  Stacktraces are presented in a special major mode
-(`cider-stacktrace-mode`), which gives you the possibility to filter out certain
-stack frames and some handy ways to navigate causes.  You'll also be able to go
-to the code in question with a single keystroke.
+使用(`cider-stacktrace-mode`)模式来过滤和在错误中跳转,如下单击操作可完成.
 
-Keyboard shortcut               | Description
+           快捷键               | 描述
 --------------------------------|-------------------------------
-<kbd>M-p</kbd> | move point to previous cause
-<kbd>M-n</kbd> | move point to next cause
-<kbd>M-.</kbd> and <kbd>Return</kbd> | navigate to the source location (if available) for the stacktrace frame
-<kbd>Tab</kbd> | Cycle current cause detail
-<kbd>0</kbd> and <kbd>S-Tab</kbd> | Cycle all cause detail
-<kbd>1</kbd> | Cycle cause #1 detail
-<kbd>2</kbd> | Cycle cause #2 detail
-<kbd>3</kbd> | Cycle cause #3 detail
-<kbd>4</kbd> | Cycle cause #4 detail
-<kbd>5</kbd> | Cycle cause #5 detail
-<kbd>j</kbd> | toggle display of java frames
-<kbd>c</kbd> | toggle display of clj frames
-<kbd>r</kbd> | toggle display of repl frames
-<kbd>t</kbd> | toggle display of tooling frames (e.g. compiler, nREPL middleware)
-<kbd>d</kbd> | toggle display of duplicate frames
-<kbd>a</kbd> | toggle display of all frames
+<kbd>M-p</kbd> | 上一个原因
+<kbd>M-n</kbd> | 下一个原因
+<kbd>M-.</kbd> and <kbd>Return</kbd> | 跳到源码（如果有的话）
+<kbd>Tab</kbd> | 循环显示当前错误原因
+<kbd>0</kbd> and <kbd>S-Tab</kbd> | 循环显示所有错误原因
+<kbd>1</kbd> | 循环显示 #1 详情
+<kbd>2</kbd> | 循环显示 #2 详情
+<kbd>3</kbd> | 循环显示 #3 详情
+<kbd>4</kbd> | 循环显示 #4 详情
+<kbd>5</kbd> | 循环显示 #5 详情
+<kbd>j</kbd> | 以下为开启关闭显示 java 代码
+<kbd>c</kbd> | 开启关闭显示clj 
+<kbd>r</kbd> | repl
+<kbd>t</kbd> | tooling (e.g. compiler, nREPL middleware)
+<kbd>d</kbd> | 重复
+<kbd>a</kbd> | 所有
 
-* Error buffer stacktraces may be filtered by default. Valid filter types
-include `java`, `clj`, `repl`, `tooling`, and `dup`. Setting this to `nil` will
-show all stacktrace frames.
+* 可以统一设置`java`, `clj`, `repl`, `tooling`, 和 `dup`.   `nil` 为显示所有.
 
 ```el
 (setq cider-stacktrace-default-filters '(tooling dup))
 ```
 
-* Error messages may be wrapped for readability. If this value is nil, messages
-will not be wrapped; if it is truthy but non-numeric, the default `fill-column`
-will be used.
+* 换行设置 `fill-column`
 
 ```el
 (setq cider-stacktrace-fill-column 80)
 ```
 
-### Debugging
+### 调试
 
-The debugger can be invoked in several ways, the simplest one is to type
-<kbd>C-u C-M-x</kbd>. This will take the current top-level form, place as many
-breakpoints inside it as possible (instrument it), and then evaluate it a
-normal. Whenever a breakpoint is reached, you'll be shown the value and asked
-for input (see below). Note that if the current form is a `defn`, it will stay
-instrumented, so the debugger will be triggered every time the function is
-called. To uninstrument `defn` (or similar forms), you just have to evaluate it
-again as you'd normally do (e.g. with <kbd>C-M-x</kbd>).
+集中方式可以打开调试器, 最简单的 <kbd>C-u C-M-x</kbd>. 这会在Top level调试，请设置断点,
+然后正常执行. 断点处会暂停，你可以check. 如果当前form是函数定义 `defn`, 则会再函数调用时暂停. 撤销敲 (e.g. <kbd>C-M-x</kbd>).
 
-Another way to trigger the debugger is by placing breakpoints yourself. Just
-write `#break` before a form, and the debugger will popup every time that form is
-evaluated. For instance, if you hit <kbd>C-M-x</kbd> on the following, a
-breakpoint is triggered every time `(inspector msg)` is evaluated.
+自己打断点也可以.在form前写`#break`，敲<kbd>C-M-x</kbd> 断点会触发 `(inspector msg)` .
 
 ```clojure
 (defn eval-msg [{:keys [inspect] :as msg}]
@@ -741,8 +687,7 @@ breakpoint is triggered every time `(inspector msg)` is evaluated.
     msg))
 ```
 
-Instead of `#break` you can also write `#dbg` before a form, this will not only
-breakpoint the form but also everything inside it. In the example above, this
+  `#dbg` 不同于  `#break`，不止form被暂停，所有代码都会生效  In the example above, this
 places a breakpoint around `(inspector msg)` and another around `msg`. If you've
 been paying attention, you may have noticed that the first option (<kbd>C-u
 C-M-x</kbd>) is a quick way of evaluating the current top-level form with `#dbg`
@@ -752,139 +697,100 @@ At any point, you can bring up a list of all currently instrumented `def`s with
 the command `cider-browse-instrumented-defs`. Protocols and types can be
 instrumented as well, but they will not be listed by this command.
 
-#### Keys
+#### 快捷键
 
-`cider-debug` tries to be consistent with
-[Edebug](http://www.gnu.org/software/emacs/manual/html_node/elisp/Edebug.html). So
-it makes available the following bindings while stepping through code.
+`cider-debug` 和
+[Edebug](http://www.gnu.org/software/emacs/manual/html_node/elisp/Edebug.html).一致：
 
 Keyboard shortcut               | Description
 --------------------------------|-------------------------------
-<kbd>n</kbd> | Next step
-<kbd>c</kbd> | Continue without stopping
-<kbd>o</kbd> | Move out of the current sexp (like `up-list`)
-<kbd>i</kbd> | Inject a value into running code
-<kbd>e</kbd> | Eval code in current context
-<kbd>l</kbd> | Inspect local variables
-<kbd>q</kbd> | Quit execution
+<kbd>n</kbd> | 下一步
+<kbd>c</kbd> | 跳过断点
+<kbd>o</kbd> | 跳出exp (like `up-list`)
+<kbd>i</kbd> | 运行时修改值
+<kbd>e</kbd> | 当前上下文执行代码
+<kbd>l</kbd> | 跟踪本地变量
+<kbd>q</kbd> | 退出debug
 
-In addition, all the usual evaluation commands (such as <kbd>C-x C-e</kbd> or
-<kbd>C-c M-:</kbd>) will use the current lexical context (local variables) while
-the debugger is active.
+debug时，所有的有效命令 (如 <kbd>C-x C-e</kbd> or
+<kbd>C-c M-:</kbd>) 会使用当前词法环境(本地变量)
 
-### Code reloading
+### 代码重新加载(可以在运行时更新代码)
 
-`cider-refresh` wraps
-[clojure.tools.namespace](https://github.com/clojure/tools.namespace), and as
-such the same
+`cider-refresh` 封装了
+[clojure.tools.namespace](https://github.com/clojure/tools.namespace), 参考这个
 [benefits](https://github.com/clojure/tools.namespace#reloading-code-motivation)
-and
+和
 [caveats](https://github.com/clojure/tools.namespace#reloading-code-preparing-your-application)
 regarding writing reloadable code also apply.
 
-Calling `cider-refresh` will cause all modified Clojure files on the classpath
-to be reloaded. You can also provide a single prefix argument to reload all
-Clojure files on the classpath unconditionally, or a double prefix argument to
-first clear the state of the namespace tracker before reloading.
+调用 `cider-refresh` 会重新load所有命名空间被修改了的代码.单一前置参数可以经常性的check load代码 , 或者双前缀参数会 先清除当前命名空间状态然后再加载.
 
-The above three operations are analogous to
+上面三个操作可以在如下模拟
 [`clojure.tools.namespace.repl/refresh`](http://clojure.github.io/tools.namespace/#clojure.tools.namespace.repl/refresh),
 [`clojure.tools.namespace.repl/refresh-all`](http://clojure.github.io/tools.namespace/#clojure.tools.namespace.repl/refresh-all)
-and
+和
 [`clojure.tools.namespace.repl/clear`](http://clojure.github.io/tools.namespace/#clojure.tools.namespace.repl/clear)
-(followed by a normal refresh), respectively.
+(相应的紧跟着一个常规的刷新)
 
-* You can define Clojure functions to be called before reloading, and after a
-  successful reload, when using `cider-refresh`:
-
+* reloading前和loading后你可以设置执行一个函数
+* 
 ```el
 (setq cider-refresh-before-fn "user/stop-system!"
       cider-refresh-after-fn "user/start-system!")
 ```
 
-* These must be set to the namespace-qualified names of vars bound to functions
-  of no arguments. The functions must be synchronous (blocking), and are
-  expected to be side-effecting - they will always be executed serially, without
-  retries.
+* 必须有效，无参. 同步阻塞并且默许副作用，串行执行
 
-* By default, messages regarding the status of the in-progress reload will be
-  displayed in the echo area after you call `cider-refresh`. The same
-  information will also be recorded in the `*cider-refresh-log*` buffer, along
-  with anything printed to `*out*` or `*err*` by `cider-refresh-before-fn` and
-  `cider-refresh-start-fn`.
+* 默认情况 `cider-refresh`会显示状态.并被写入 `*cider-refresh-log*` 缓冲区，被 `cider-refresh-before-fn` 和
+  `cider-refresh-start-fn`.打印到`*out*` or `*err*` 也一样会写入
 
-* You can make the `*cider-refresh-log*` buffer display automatically after you
-  call `cider-refresh` by setting the `cider-refresh-show-log-buffer` variable
-  to a non-nil value (this will also prevent any related messages from also
-  being displayed in the echo area):
-
+* 设置 `cider-refresh-show-log-buffer` 非nil值让 `*cider-refresh-log*` 自动显示
+* 
 ```el
 (setq cider-refresh-show-log-buffer t)
 ```
 
-### Managing multiple connections
+### 多个nREPL连接的切换与设置
 
-You can connect to multiple nREPL servers using <kbd>M-x cider-jack-in</kbd> (or
-`cider-connect`) multiple times.  To close the current nREPL connection, use
+多次敲<kbd>M-x cider-jack-in</kbd> (or
+`cider-connect`) 可以连到多个nREPL .关闭连接敲
 <kbd>M-x cider-quit</kbd>.
 
-CIDER maintains a list of nREPL connections and a single 'default'
-connection. When you execute CIDER commands in a Clojure editing buffer such as
-to compile a namespace, these commands are executed against a specific
-connection. This is controlled by the variable `cider-request-dispatch` - when
-it's set to `'dynamic` (the default), CIDER will try to infer which connection
-to use from the current project and currently visited file; when `'static`
-dispatch is used all requests will always be routed to the default connection
-(this was the default behavior in CIDER before 0.10).
+多个连接中只有一个是默认的， `cider-request-dispatch` 设置当他是 `'dynamic` (默认), CIDER 会通过当前工程和当前文档去判断;如果是`'static`  （CIDER 0.10 之前的版本是static) 则总是执行到默认的连接.
 
-You can display the current nREPL connection using <kbd>C-c M-d</kbd>
-and rotate the default connection using <kbd>C-c M-r</kbd>. Another
-option for setting the default connection is to execute the command
-<kbd>M-x cider-make-connection-default</kbd> in the appropriate
-REPL buffer.
+当前REPL <kbd>C-c M-d</kbd>
+切换 <kbd>C-c M-r</kbd>. 
+设置appropriate默认nRepl的另一个命令：
+<kbd>M-x cider-make-connection-default</kbd>  
 
-To switch to the relevant REPL buffer based on the Clojure namespace
-in the current Clojure buffer, use: <kbd>C-c C-z</kbd>. You can then
-use the same key combination to switch back to the Clojure buffer you
-came from.
+切换到相邻repl: <kbd>C-c C-z</kbd>. 重复一次则返回clojure文件
 
-The single prefix <kbd>C-u C-c C-z</kbd>, will switch you to the
-relevant REPL buffer and set the namespace in that buffer based on
-namespace in the current Clojure buffer.
+独立前缀 <kbd>C-u C-c C-z</kbd>, 会切到相邻nRepl并且设置命名空间为当前clojure文件的buffer所在命名空间
 
-To change the designation used for CIDER buffers use <kbd>M-x
-cider-change-buffers-designation</kbd>. This changes the CIDER REPL
-buffer, nREPL connection buffer and nREPL server buffer. For example
-using `cider-change-buffers-designation` with the string "foo" would
-change `*cider-repl localhost*` to `*cider-repl foo*`.
+改变标示符： <kbd>M-x
+cider-change-buffers-designation</kbd>. 如 `cider-change-buffers-designation` 加字符串 "foo" 会改变 `*cider-repl localhost*` 为 `*cider-repl foo*`.
 
-## Configuration
+## 更深度的定制（）
 
-You can certainly use CIDER without configuring it any further,
-but here are some ways other folks are adjusting their CIDER
-experience.
+如下高级功能配置可以略过也可以参考
 
-### Basic configuration
+### 基本配置
 
-* Enable `eldoc` in Clojure buffers:
+* 打开 `eldoc` :
 
 ```el
 (add-hook 'cider-mode-hook #'eldoc-mode)
 ```
 
-* Suppress auto-enabling of `cider-mode` in `clojure-mode` buffers, when starting
-  CIDER:
+* 新建clojure buffer时自动覆盖 `cider-mode` 在 `clojure-mode` buffers 上:
 
 ```el
 (setq cider-auto-mode nil)
 ```
 
-By default CIDER will enable `cider-mode` in all `clojure-mode` buffers when the
-first CIDER connection is established. It will also add a `clojure-mode` hook to
-enable it on newly created `clojure-mode` buffers. The configuration snippet
-above allows you to override this (somewhat non-standard) behavior.
 
-* Don't log communication with the nREPL server:
+* 关掉通讯日志:
 
 ```el
 (setq nrepl-log-messages nil)
@@ -969,10 +875,11 @@ make the hidden buffers visible. They'll always be visible in
 
 To remove the prefix altogether just set it to an empty string(`""`).
 
-* CIDER can syntax highlight symbols that are known to be defined. By default,
-  this is done on symbols from the `clojure.core` namespace as well as macros
-  from any namespace. If you'd like CIDER to also colorize usages of functions
-  and variables from any namespace, do:
+
+
+
+
+* CIDER 会高亮已经识别的语法符号，同样可以定制:
 
 ```el
 (setq cider-font-lock-dynamically '(macro core function var))
@@ -987,8 +894,8 @@ helpful for identifying each host.
 (setq cider-known-endpoints '(("host-a" "10.10.10.1" "7888") ("host-b" "7888")))
 ```
 
-* If you are targeting the JVM and prefer a local copy of the JDK API
-  documentation over Oracle's official copy (e.g., for
+* 使用JDK API文档的本地拷贝：
+* (e.g., for
   [JavaSE 8](http://docs.oracle.com/javase/8/docs/api/)), per nREPL's
   [`javadoc-info` logic (accurate as of 29 Dec 2014)](http://docs.oracle.com/javase/8/docs/api/),
   you can arrange your project to include the **root** path of the local API doc
@@ -1010,25 +917,25 @@ helpful for identifying each host.
 
 More detail can be found [here](https://github.com/clojure-emacs/cider/issues/930).
 
-### Overlays
+### 及时执行完代码，结果覆盖到执行点的设置
 
 When you evaluate code in Clojure files, the result is displayed in the buffer
 itself, in an overlay right after the evaluated code.  If you want this overlay
-to be font-locked (syntax-highlighted) like Clojure code, set the following
+to be font-locked (设置语法高亮) like Clojure code, set the following
 variable.
 
 ```el
 (setq cider-overlays-use-font-lock t)
 ```
 
-You can disable overlays entirely (and display results in the echo-area at the
+完全取消覆盖可以设置 (and display results in the echo-area at the
 bottom) with the `cider-use-overlays` variable.
 
 ```el
 (setq cider-use-overlays nil)
 ```
 
-### Specifying indentation
+### 特殊缩进
 
 It is common for macros to require special indentation mechanisms. This is most
 common in macros that start with `do`, `def`, or `with-`.  CIDER has some
@@ -1056,14 +963,15 @@ And here's a more complex one:
   ...cut for brevity...)
 ```
 
+设置特殊缩进请参考以下文档
 Don't worry if this looks intimidating. For most macros the indent spec should
 be either just a number, or one of the keywords `:defn` or `:form`. A full
 description of the spec is provided in [Indent-Spec.md](Indent-Spec.md).
 
-### Minibuffer completion
+### Minibuffer 补全
 
 Out-of-the box CIDER uses the standard `completing-read` Emacs mechanism. While
-it's not fancy it certainly gets the job done (just press `TAB`). There are,
+it's not fancy it certainly gets the job done (敲 `TAB`). There are,
 however, ways to improve upon the standard completion if you wish to.
 
 #### icomplete
@@ -1081,7 +989,7 @@ If you are using `ido`, be sure to use both `ido-everywhere`
 and [`ido-ubiquitous`](https://github.com/DarwinAwardWinner/ido-ubiquitous).
 You might also want to install [`ido-flex`](https://github.com/lewang/flx).
 
-### Auto-completion
+### 自动补全功能请安装 `company-mode` 模式
 
 CIDER users are advised to use [`company-mode`](http://company-mode.github.io/)
 to enable auto-completion inside of source code and REPL buffers.  To install
@@ -1089,13 +997,13 @@ to enable auto-completion inside of source code and REPL buffers.  To install
 
 `M-x package-install <RET> company <RET>`
 
-After installation, company can be turned on  globally, like so --
+安装后可以设置全局开启（推荐）
 
 ```el
 (global-company-mode)
 ```
 
--- or through mode-specific hooks:
+-- 或者针对特定模式
 
 ```el
 (add-hook 'cider-repl-mode-hook #'company-mode)
@@ -1105,22 +1013,20 @@ After installation, company can be turned on  globally, like so --
 When `company-mode` is thus enabled, it will receive completion information
 from `cider-complete-at-point`, and requires no additional setup or plugins.
 
-If you'd prefer to trigger completions manually you can add this to you config:
+设置手动补全
 
 ```el
 (setq company-idle-delay nil) ; never start completions automatically
 (global-set-key (kbd "M-TAB") #'company-complete) ; use M-TAB, a.k.a. C-M-i, as manual trigger
 ```
 
-To make `TAB` complete, without losing the ability to manually indent, you can
-add this to your config:
+使用 `TAB` 补全, 又不损失自动缩进请设置:
 
 ```el
 (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
 ```
 
-`company-indent-or-complete-common` is available only in `company-mode` 0.9+ (at
-the time of this writing it's still in development).
+`company-indent-or-complete-common` 在 `company-mode` 0.9+已经加入 (但还在开发中).
 
 #### Migrating from `auto-complete-mode`
 
@@ -1174,9 +1080,8 @@ enable `paredit` in the REPL buffer as well:
 (add-hook 'cider-repl-mode-hook #'smartparens-strict-mode)
 ```
 
-* [RainbowDelimiters](https://github.com/Fanael/rainbow-delimiters) is a
-  minor mode which highlights parentheses, brackets, and braces
-  according to their depth. Each successive level is highlighted in a
+* [RainbowDelimiters](https://github.com/Fanael/rainbow-delimiters) 根据代码括号深度彩虹色显示括弧.
+* Each successive level is highlighted in a
   different color. This makes it easy to spot matching delimiters,
   orient yourself in the code, and tell which statements are at a
   given depth. Assuming you've already installed RainbowDelimiters you can
@@ -1201,7 +1106,7 @@ CIDER integration for `eval-sexp-fu`.
 
 ## Caveats
 
-### ClojureScript limitations
+### ClojureScript 局限性
 
 Currently, the following features are not supported for ClojureScript
 development:
@@ -1213,10 +1118,9 @@ development:
 * Debugging (check out [this ticket](https://github.com/clojure-emacs/cider/issues/1416) dedicated to porting the debugger to ClojureScript)
 
 There is currently no support for both Clojure and ClojureScript evaluation in
-the same nREPL session. If Piggieback is active, code evaluation and all
-features will assume ClojureScript.
+the same nREPL session. 如果 Piggieback 处于激活状态, 所有代码会默认为 ClojureScript.
 
-#### Var Metadata
+#### 变量元数据
 
 Currently var metadata about the location of the var's definition within the
 ClojureScript source code (file, line & column) is set only when evaluating the
@@ -1252,7 +1156,7 @@ loaded. As a workaround remove
 
 from your Emacs config.
 
-## Troubleshooting
+## 问题处理
 
 In case you run into issues here are a few tips that can help you diagnose the
 problem.
