@@ -295,7 +295,7 @@ $ lein new demo
 $ lein repl
 ```
 
-Or with Boot:
+或者使用 Boot 的话:
 
 ```
 $ boot repl wait
@@ -307,34 +307,34 @@ nREPL启动后，回到Emacs输入 <kbd>M-x cider-connect</kbd> 你就连过去�
 
 ### 使用 cider-mode（最重要的部分来了）
 
-CIDER comes with a handy minor mode called `cider-mode` (complementing
-`clojure-mode`) that allows you to evaluate code in your Clojure source
-files and load it directly in the REPL.  Here's a list of its keybindings:
+CIDER 使用 `cider-mode` 辅助模式(作为主模式的补充
+`clojure-mode`) 在REPL 中执行代码或者及时加载你的源代码文件.  下面是在Emacs中 cider-mode的快捷键(当前活动窗口是*.clj文件):
 
-Keyboard shortcut                    | Description
+           快捷键                    | 功能描述
 -------------------------------------|-------------------------------
-<kbd>C-x C-e</kbd> <kbd>C-c C-e</kbd>| Evaluate the form preceding point and display the result in the echo area and/or in an buffer overlay (according to `cider-use-overlays`).  If invoked with a prefix argument, insert the result into the current buffer.
-<kbd>C-c C-w</kbd>                   | Evaluate the form preceding point and replace it with its result.
-<kbd>C-c M-e</kbd>                   | Evaluate the form preceding point and output it result to the REPL buffer.  If invoked with a prefix argument, takes you to the REPL buffer after being invoked.
-<kbd>C-c M-p</kbd>                   | Load the form preceding point in the REPL buffer.
-<kbd>C-c C-p</kbd>                   | Evaluate the form preceding point and pretty-print the result in a popup buffer.
-<kbd>C-c C-f</kbd>                   | Evaluate the top level form under point and pretty-print the result in a popup buffer.
-<kbd>C-M-x</kbd> <kbd>C-c C-c</kbd>  | Evaluate the top level form under point and display the result in the echo area.
-<kbd>C-u C-M-x</kbd> <kbd>C-u C-c C-c</kbd>  | Debug the top level form under point and walk through its evaluation
-<kbd>C-c C-r</kbd>                   | Evaluate the region and display the result in the echo area.
-<kbd>C-c C-b</kbd>                   | Interrupt any pending evaluations.
-<kbd>C-c C-m</kbd>                   | Invoke `macroexpand-1` on the form at point and display the result in a macroexpansion buffer.  If invoked with a prefix argument, `macroexpand` is used instead of `macroexpand-1`.
-<kbd>C-c M-m</kbd>                   | Invoke `clojure.walk/macroexpand-all` on the form at point and display the result in a macroexpansion buffer.
-<kbd>C-c C-n</kbd>                   | Eval the ns form.
-<kbd>C-c M-n</kbd>                   | Switch the namespace of the REPL buffer to the namespace of the current buffer.
-<kbd>C-c C-z</kbd>                   | Switch to the relevant REPL buffer. Use a prefix argument to change the namespace of the REPL buffer to match the currently visited source file.
-<kbd>C-u C-u C-c C-z</kbd>           | Switch to the REPL buffer based on a user prompt for a directory.
-<kbd>C-c M-z</kbd>                   | Load (eval) the current buffer and switch to the relevant REPL buffer. Use a prefix argument to change the namespace of the REPL buffer to match the currently visited source file.
-<kbd>C-c M-d</kbd>                   | Display default REPL connection details, including project directory name, buffer namespace, host and port.
-<kbd>C-c M-r</kbd>                   | Rotate and display the default nREPL connection.
-<kbd>C-c C-o</kbd>                   | Clear the last output in the REPL buffer. With a prefix argument it will clear the entire REPL buffer, leaving only a prompt. Useful if you're running the REPL buffer in a side by side buffer.
-<kbd>C-c C-k</kbd>                   | Load (eval) the current buffer.
-<kbd>C-c C-l</kbd>                   | Load (eval) a Clojure file.
+<kbd>C-x C-e</kbd> <kbd>C-c C-e</kbd>| 执行当前鼠标位置往上的最近的一段form并且显示结果在回显区，和/或 覆盖缓冲区 (根据 `cider-use-overlays`).  如果前面加了overlays, 结果插入当前缓冲区.
+<kbd>C-c C-w</kbd>                   | 执行当前鼠标位置往上的最近的一段form并且用结果替代代码.
+<kbd>C-c M-e</kbd>                   | 执行当前鼠标位置往上的最近的一段form并且输出到 REPL buffer. 如带参数会切到参数所指REPL buffer.
+<kbd>C-c M-p</kbd>                   | 当前鼠标位置往上的最近的一段form复制到 REPL buffer.
+<kbd>C-c C-p</kbd>                   | 执行当前鼠标位置往上的最近的一段form并且 pretty-print 输出到新的 buffer.
+<kbd>C-c C-f</kbd>                   | 执行当前鼠标位置往上的最顶层的一段form pretty-print the result in a popup buffer.
+<kbd>C-M-x</kbd> <kbd>C-c C-c</kbd>  | 执行当前鼠标位置往上的最顶层的一段form and display the result in the echo area.
+<kbd>C-u C-M-x</kbd> <kbd>C-u C-c C-c</kbd>  | Debug 当前鼠标位置往上的最顶层的一段form 单步执行
+<kbd>C-c C-r</kbd>                   | 执行选定区域代码在回显区显示结果.
+<kbd>C-c C-b</kbd>                   | 中断以上操作中任何正在执行的代码.
+<kbd>C-c C-m</kbd>                   | 当前鼠标位置form 调用 `macroexpand-1`  输出结果到macroexpansion buffer.  如果有前置参数会执行 `macroexpand`  
+<kbd>C-c M-m</kbd>                   | 当前鼠标位置form 调用 `clojure.walk/macroexpand-all`  输出结果到 macroexpansion buffer.
+<kbd>C-c C-n</kbd>                   | 执行 ns form.
+<kbd>C-c M-n</kbd>                   | 把当前文件buffer的命名空间加载到nREPL.
+<kbd>C-c C-z</kbd>                   | 切换到nRepl 缓冲区. 使用 prefix 参数改变命名空间为当前文件的命名空间.
+<kbd>C-u C-u C-c C-z</kbd>           | 切换到nRepl 缓冲区基于你在提示符后输入的目录名.
+<kbd>C-c M-z</kbd>                   | 加载执行当前buffer并且切到相邻的nREPL buffer. Use a prefix argument to change the namespace of the REPL buffer to match the currently visited source file.
+<kbd>C-c M-d</kbd>                   | 显示默认REPL连接的详细信息, 包括工程目录名, 缓冲区命名空间, 主机名和端口号.
+<kbd>C-c M-r</kbd>                   | 旋转并且显示默认的 nREPL 连接.
+<kbd>C-c C-o</kbd>                   | 清楚nREPL最后一行.前面加参数的话会清除整个缓冲区,只留下提示符.
+如果你左右分屏打开编辑和运行窗口的话比较有用.
+<kbd>C-c C-k</kbd>                   | 加载执行当前文件的buffer.（最常用的命令，相当于编译）
+<kbd>C-c C-l</kbd>                   | 加载执行当前文件.（最常用的命令，相当于编译）
 <kbd>C-c C-x</kbd>                   | Reload all modified files on the classpath. If invoked with a prefix argument, reload all files on the classpath. If invoked with a double prefix argument, clear the state of the namespace tracker before reloading.
 <kbd>C-c C-d d</kbd>                   | Display doc string for the symbol at point.  If invoked with a prefix argument, or no symbol is found at point, prompt for a symbol.
 <kbd>C-c C-d j</kbd>                   | Display JavaDoc (in your default browser) for the symbol at point.  If invoked with a prefix argument, or no symbol is found at point, prompt for a symbol.
